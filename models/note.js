@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Notes = sequelize.define('Notes', {
+  var Note = sequelize.define('Note', {
     note: DataTypes.DOUBLE,
     message: DataTypes.STRING,
     idUser: DataTypes.INTEGER,
@@ -8,9 +8,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        Note.belongsTo(models.User, {foreignKey: 'idUser' });
+        Note.belongsTo(models.Resto, {foreignKey: 'idResto' , onDelete: 'cascade'});
       }
     }
   });
-  return Notes;
+  return Note;
 };

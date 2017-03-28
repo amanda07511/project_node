@@ -1,4 +1,4 @@
-'use strict';
+use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Restos', {
@@ -22,6 +22,13 @@ module.exports = {
       },
       note: {
         type: Sequelize.DOUBLE
+      },
+      photo: {
+        type: Sequelize.STRING
+      },
+      idUser: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' }
       },
       createdAt: {
         allowNull: false,

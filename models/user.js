@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.Resto, {foreignKey: 'idUser' });
-        User.hasMany(models.Notes, {foreignKey: 'idUser' });
+        User.hasMany(models.Note, {foreignKey: 'idUser' });
       }
     }
   });

@@ -14,6 +14,12 @@ module.exports = {
       message: {
         type: Sequelize.STRING
       },
+      idUser: {
+        type: Sequelize.INTEGER
+      },
+      idResto: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
