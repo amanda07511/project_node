@@ -6,11 +6,13 @@ module.exports = function(sequelize, DataTypes) {
     lat: DataTypes.FLOAT,
     lng: DataTypes.FLOAT,
     note: DataTypes.DOUBLE,
+    photo: DataTypes.STRING,
     idUser: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
-        Resto.hasMany(models.Notes, {foreignKey: 'idResto' });
+        Resto.hasMany(models.Note, {foreignKey: 'idResto'  });
+        Resto.belongsTo(models.User, {foreignKey: 'idUser' });
       }
     }
   });
