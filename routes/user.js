@@ -42,7 +42,7 @@ router.post('/login', urlencodedParser, function(req,res){
 		}
 		//create a token with user informationand with an hour of duration
 			var token=jwt.sign({id: userFound.id, nom: userFound.nom, prenom: userFound.prenom, email: userFound.email, password: userFound.password, photo:userFound.photo}, 
-				'gato', { expiresIn: '1h' });
+				'gato');
 
 			// Prepare output in JSON format
 			 response = {
@@ -94,7 +94,7 @@ router.post('/signup', urlencodedParser, function (req, res) {
 				console.log(newUser);
 				//create a token with user informationand with an hour of duration
 				var token=jwt.sign({id: newUser.id,nom: newUser.nom, prenom: newUser.prenom, email: newUser.email, password: newUser.password, photo: newUser.photo}, 
-					'gato', { expiresIn: '1h' });
+					'gato');
 
 				// Prepare output in JSON format
 				 response = {
