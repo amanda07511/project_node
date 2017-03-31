@@ -1,0 +1,23 @@
+
+<ion-header>
+  <ion-navbar *navbar>
+    <ion-title>last</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+	    <button ion-item  *ngFor="let person of people"  (click)="presentProfileModal(person.lat,person.lng)">
+	      <ion-avatar item-left>
+	        <img src="{{person.user.picture}}">
+	      </ion-avatar>
+	      <ion-col width-80>
+		      <h2>{{person.user.id}} {{person.user.name}}</h2>
+		      <p>{{person.lat}}</p>
+		      <p>{{person.lng}}</p>
+	      </ion-col>
+	      <ion-icon item-right name="ios-arrow-forward"></ion-icon>
+	    </button>
+  </ion-list>
+</ion-content>

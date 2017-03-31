@@ -1,0 +1,82 @@
+<!--
+  Generated template for the Resto page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>resto</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+ <ion-list >
+        <ion-card *ngIf="items">
+
+          <ion-card-header>
+            <h1>{{items.nom}}</h1>
+          </ion-card-header>
+
+          <ion-item>
+            <ion-avatar item-left>
+              <img src="{{items.user.photo}}" (click)=" presentActionSheet()">
+            </ion-avatar>
+            <h2>{{items.user.nom}} {{items.user.prenom}}</h2>
+          </ion-item>
+
+          <img src="{{items.photo}}">
+          <ion-col width-80>
+            <h2>Type: {{items.type}}</h2>
+            <p>{{items.lat}}</p>
+            <p>{{items.lng}}</p>
+            <p>Note: <ion-badge item-right color="secondary">{{items.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
+          </ion-col>
+          
+        </ion-card>
+
+        <ion-card>
+
+          <ion-card-header>
+            Notes
+          </ion-card-header>
+
+          <ion-fab right>
+            <button ion-fab (click)="showRadio()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-fab>
+
+          <ion-col width-80 *ngIf="one">
+                <h2>There's not comments already, make one and let know your opinion!</h2>
+          </ion-col>
+
+          <ion-list *ngFor="let note of notes">
+
+            <ion-item>
+
+              <ion-item>
+                <ion-avatar item-left>
+                  <img src="{{note.user.photo}}">
+                </ion-avatar>
+                <h2>{{note.user.nom}} {{note.user.prenom}}</h2>
+              </ion-item>
+
+              <ion-col width-80>
+                <h2>Comment: {{note.message}}</h2>
+                <p>Note: <ion-badge item-right color="secondary">{{note.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
+              </ion-col>
+
+            </ion-item>
+
+          </ion-list>
+
+        </ion-card>
+
+    </ion-list>
+
+</ion-content>

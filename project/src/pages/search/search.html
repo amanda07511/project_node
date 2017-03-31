@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Find Me!</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding >
+
+	<ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput($event)" hideCancelButton="true"></ion-searchbar>
+ 
+    <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+
+  <ion-list *ngIf="all">
+      <ion-card *ngFor="let person of people"  (click)="openNavDetailsPage(person.id)">
+
+        <ion-card-header>
+          <h1>{{person.nom}}</h1>
+        </ion-card-header>
+        
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="{{person.user.photo}}">
+          </ion-avatar>
+          <h2>{{person.user.nom}} {{person.user.prenom}}</h2>
+        </ion-item>
+
+        <img src="{{person.photo}}">
+
+        <ion-col width-80>
+          <h2>Type: {{person.type}}</h2>
+          <p>{{person.lat}}</p>
+          <p>{{person.lng}}</p>
+          <p>Note: <ion-badge item-right color="secondary">{{person.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
+        </ion-col>
+
+      </ion-card>
+  </ion-list>
+ 
+    <ion-list *ngIf="one">
+        <ion-card *ngIf="items">
+
+          <ion-card-header>
+            <h1>{{items.nom}}</h1>
+          </ion-card-header>
+          
+          <ion-item>
+            <ion-avatar item-left>
+              <img src="{{items.user.photo}}">
+            </ion-avatar>
+            <h2>{{items.user.nom}} {{items.user.prenom}}</h2>
+          </ion-item>
+
+          <img src="{{items.photo}}">
+
+          <ion-col width-80>
+            <h2>Type: {{items.type}}</h2>
+            <p>{{items.lat}}</p>
+            <p>{{items.lng}}</p>
+            <p>Note: <ion-badge item-right color="secondary">{{person.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
+          </ion-col>
+
+        </ion-card>
+
+    </ion-list>
+
+</ion-content>

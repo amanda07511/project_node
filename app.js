@@ -3,6 +3,7 @@ var connect = require('sever');
 
 //Node modules
 var express    = require("express");
+var cors = require('cors')
 
 //Calling routes
 var user = require('./routes/user.js');
@@ -12,6 +13,7 @@ var notes = require('./routes/notes.js');
 //create application expres
 var app = express();
 
+app.use(cors());
 
 app.use('/user', user);
 app.use('/resto', resto);
