@@ -27,9 +27,10 @@ router.use(function timeLog(req, res, next) {
 router.post('/login', urlencodedParser, function(req,res){
 
 	//If there's no body parametres throw and error status
-	if (!req.body) return res.sendStatus(401)
+	//if (!req.body) return res.sendStatus(401)
 	//If one of the parametres is not defined throw and error status
-	else if(!req.body.email||!req.body.password) return res.sendStatus(401)
+
+	if(!req.body.email||!req.body.password) return res.sendStatus(401)
 
 	models.User.findOne({
 		where:{
@@ -41,14 +42,18 @@ router.post('/login', urlencodedParser, function(req,res){
 			res.json({status: 500, message: "Invalid_credentials"});
 		}
 		//create a token with user informationand with an hour of duration
-			var token=jwt.sign({id: userFound.id, nom: userFound.nom, prenom: userFound.prenom, email: userFound.email, password: userFound.password, photo:userFound.photo}, 
+			var token=jwt.sign({id: userFound.id}, 
 				'gato');
 
 			// Prepare output in JSON format
 			 response = {
       				token:token
    			 };
-			res.setHeader('Content-Type', 'text/plain');
+   			
+   			res.header("Access-Control-Allow-Origin", "*");
+   			res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+   			res.header("Access-Control-Allow-Headers", "X-Requested-With,     Content-Type");
+			res.setHeader('Content-Type', 'application/json');
 			res.end(JSON.stringify(response));	
 	}).catch(function(err) { 
 		console.log(err); 
@@ -57,10 +62,11 @@ router.post('/login', urlencodedParser, function(req,res){
 });
 
 router.post('/signup', urlencodedParser, function (req, res) {
-	 //If there's no body parametres throw and error status
+	console.log(req.body)
+  //If there's no body parametres throw and error status
   if (!req.body) return res.sendStatus(401)
   //If one of the parametres is not defined throw and error status
-  else if(!req.body.nom||!req.body.prenom||!req.body.email||!req.body.password||!req.body.photo) return res.sendStatus(401)
+  else if(!req.body.nom||!req.body.prenom||!req.body.email||!req.body.password) return res.sendStatus(401)
 
   	async.series([
 		// fonction #1 for check that the users email is not than BD.
@@ -93,7 +99,7 @@ router.post('/signup', urlencodedParser, function (req, res) {
 			}).then(function(newUser){
 				console.log(newUser);
 				//create a token with user informationand with an hour of duration
-				var token=jwt.sign({id: newUser.id,nom: newUser.nom, prenom: newUser.prenom, email: newUser.email, password: newUser.password, photo: newUser.photo}, 
+				var token=jwt.sign({id: newUser.id}, 
 					'gato');
 
 				// Prepare output in JSON format
@@ -113,6 +119,35 @@ router.post('/signup', urlencodedParser, function (req, res) {
 	});//end Async
 
 	
+});
+
+// GET resto by id 
+router.get('/get/', function(req,res){
+	console.log(req.get('token'));
+	//If header token is not defined throw and error status
+	if(!req.get('token')) return res.sendStatus(401)
+		
+	var token=req.get('token');
+	jwt.verify(token, 'gato', function(err, decoded) {
+	  if (err) {
+	  	response = { erro:err.message };
+	    return res.end(JSON.stringify(response));
+	  }
+	  	var decoded = jwt.verify(token, 'gato');
+		console.log(decoded);
+
+		models.User.findOne({
+  		where:{ id: decoded.id}
+	  	}).then(function(userFound) {
+	  		
+	  		data = {id: userFound.id, nom: userFound.nom, prenom: userFound.prenom, email: userFound.email, photo: userFound.photo };
+
+			res.setHeader('Content-Type', 'text/plain');
+			res.end(JSON.stringify(data));
+		});
+
+	});
+
 });
 
 

@@ -48,6 +48,30 @@ router.get('/', function(req, res) {
 });
 
 // GET notes by id Resto 
+router.get('/sum/:id', function(req,res){
+
+	var id=decodeURI(req.params.id);
+
+
+	models.Note.sum('note',{
+		where:{ idResto: id}
+	}).then(function (data) {
+		if (data==null) {
+			res.json({status: 500, message: "Not coincidences"});
+		}
+		
+		response = {sum: data}
+   		
+		res.setHeader('Content-Type', 'text/plain');
+		res.json(response);
+
+	}).catch(function(err) { 
+		console.log(err); 
+	});
+
+});
+
+// GET notes by id Resto 
 router.get('/get/:id', function(req,res){
 
 	var id=decodeURI(req.params.id);
@@ -71,12 +95,12 @@ router.get('/get/:id', function(req,res){
    			 restos.push(response);
 		}
 		res.setHeader('Content-Type', 'text/plain');
-		res.end(JSON.stringify(response));	
+		res.json(restos);	
 	}).catch(function(err) { 
 		console.log(err); 
 	});
 
-});
+})
 
 // GET my notes
 router.get('/get', function(req, res) {
@@ -127,7 +151,7 @@ router.post('/create', urlencodedParser, function (req, res) {
   if(!req.body.note||!req.body.message||!req.body.resto) return res.sendStatus(401)
   //If header token is not defined throw and error status
   if(!req.get('token')) return res.sendStatus(401)
-
+  	console.log(req.get('token'));
   	//I take the token and i verify it. 
 	var token=req.get('token');
 	jwt.verify(token, 'gato', function(err, decoded) {
@@ -154,7 +178,6 @@ router.post('/create', urlencodedParser, function (req, res) {
 				note:req.body.note,
 		      	message:req.body.message,
 		      	idResto:req.body.resto,
-		      	idUser:req.body.lng,
 		      	idUser: userId
 			}).then(function(newNote){
 				response = {

@@ -32,7 +32,7 @@ router.get('/', function(req, res) {
   		
   		for(var i=0;i<data.length;i++){
 
-			a={ nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, 
+			a={ id: data[i].id,nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
 				user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo}};
 			restos.push(a);
 		}
@@ -56,12 +56,45 @@ router.get('/get/:name', function(req,res){
 		if (restoFound==null) {
 			res.json({status: 500, message: "Not coincidences"});
 		}
+		else{
 			// Prepare output in JSON format
-			 response = { nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, note:restoFound.note,
-			 	user: {nom: restoFound.User.nom, prenom:restoFound.User.prenom, email: restoFound.User.email, photo:restoFound.User.photo}
-   			 };
-			res.setHeader('Content-Type', 'text/plain');
-			res.end(JSON.stringify(response));	
+			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
+				user: {nom: restoFound.User.nom, prenom:restoFound.User.prenom, email: restoFound.User.email, photo:restoFound.User.photo}
+   			};
+   			res.setHeader('Content-Type', 'text/plain');
+			res.end(JSON.stringify(response));
+		}
+			
+				
+	}).catch(function(err) { 
+		console.log(err); 
+	});
+
+});
+
+// GET resto by id 
+router.get('/getId/:id', function(req,res){
+
+	var id=decodeURI(req.params.id);
+
+
+	models.Resto.findOne({
+		where:{ id: id},
+		include: [{ model: models.User, as: 'User'}]
+	}).then(function (restoFound) {
+		if (restoFound==null) {
+			res.json({status: 500, message: "Not coincidences"});
+		}
+		else{
+			// Prepare output in JSON format
+			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
+				user: {nom: restoFound.User.nom, prenom:restoFound.User.prenom, email: restoFound.User.email, photo:restoFound.User.photo}
+   			};
+   			res.setHeader('Content-Type', 'text/plain');
+			res.end(JSON.stringify(response));
+		}
+			
+				
 	}).catch(function(err) { 
 		console.log(err); 
 	});

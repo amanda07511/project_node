@@ -1,0 +1,15 @@
+{
+    "name": "service",
+    "version": "0.1.0",
+    "main": "service",
+    "ignore": [
+        ".jshintrc",
+        "demos",
+        "index.js",
+        "package.json",
+        "vendor"
+    ],
+    "dependencies": {
+        "packager": "0.1.*"
+    }
+}

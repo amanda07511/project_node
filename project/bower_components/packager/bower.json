@@ -1,0 +1,8 @@
+{
+    "name": "packager",
+    "version": "0.1.2",
+    "main": "packager",
+    "ignore": [
+        ".jshintrc"
+    ]
+}

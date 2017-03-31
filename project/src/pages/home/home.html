@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Find Me!</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-grid>
+    
+    <ion-row >
+      <ion-col  text-center>
+        <h2> WELCOME </h2>
+        <p>
+              Find your friends and family, or makes them know where you are.
+        </p>
+      </ion-col>
+
+    </ion-row>
+  
+    <ion-card>
+      <div #map id="map"></div>
+      <button ion-button (click)=" addChecking()" full><ion-icon name="md-add-circle" >Add Position</ion-icon></button>
+    </ion-card>
+
+    <ion-card>
+      <img [src]="base64Image" *ngIf="base64Image" />
+      <button ion-button color="primary" (click)=" presentActionSheet()" full>Select Image</button>
+    </ion-card>
+
+
+  </ion-grid>
+
+
+</ion-content>
