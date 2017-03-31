@@ -46,7 +46,7 @@ export class Note {
     
       return new Promise((resolve, reject) => {
          
-        this.http.post('http://localhost:3000/notes/create', body ,options)
+        this.http.post('http://localhost:3000/notes/suma', body ,options)
           .subscribe(res => {
             let data = res.json();
             resolve(data);

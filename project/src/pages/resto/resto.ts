@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Geocoder, GeocoderRequest } from 'ionic-native';
+import { Geolocation, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, CameraPosition, GoogleMapsMarkerOptions, GoogleMapsMarker, Geocoder, GeocoderRequest } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
 import { SearchService } from '../../providers/search-service';
@@ -13,6 +13,11 @@ declare var google;
   templateUrl: 'resto.html'
 })
 export class RestoPage {
+
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+  lat: any;
+  lng: any;
 
   public one = false;
 
@@ -34,11 +39,15 @@ export class RestoPage {
       this.token = value;
     });
 
+    this.getDirection();
+
   }
 
   loadResto(){
        this.searchService.loadDetails(this.id).then(data => {
           this.items = data;
+          this.lat = data['lat'];
+          this.lng = data['lng'];
        });
    }
 
@@ -62,7 +71,7 @@ export class RestoPage {
    }
 
    getDirection(){
-     let location = new google.maps.LatLng (13123.3,-243.98);
+     let location = new google.maps.LatLng (this.lat,this.lng);
      let req: GeocoderRequest = { position: location }
         Geocoder.geocode(req).then((results)=>{
           console.log(results)

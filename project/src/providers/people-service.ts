@@ -46,10 +46,11 @@ export class PeopleService {
                 '&prenom='+details.prenom+
                 '&photo=' +img;
 
-
+     console.log(headers);
+     console.log(body);
      return new Promise((resolve, reject) => {
         console.log(details);
-        this.http.post('http://localhost:3000/user/signup', body , options )
+        this.http.post('http://localhost:3000/user/update', body , options )
           .subscribe(res => {
             let data = res.json();
             resolve(data);

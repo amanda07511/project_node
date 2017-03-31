@@ -48,26 +48,117 @@ router.get('/', function(req, res) {
 });
 
 // GET notes by id Resto 
-router.get('/sum/:id', function(req,res){
+router.post('/suma', urlencodedParser , function(req,res){
 
-	var id=decodeURI(req.params.id);
+	//If there's no body parametres throw and error status
+  	if (!req.body) return res.sendStatus(401)
+  	//If one of the parametres is not defined throw and error status
+ 	if(!req.body.note||!req.body.message||!req.body.resto) return res.sendStatus(401)
+  	//If header token is not defined throw and error status
+  	if(!req.get('token')) return res.sendStatus(401)
+
+	var idResto=decodeURI(req.body.resto);
+	var suma;
+	var prom;
+
+	async.series([
+		// fonction #1 for check that the users email is not than BD.
+		function(callback) {
+
+			//I take the token and i verify it. 
+			var token=req.get('token');
+			jwt.verify(token, 'gato', function(err, decoded) {
+					  
+				if (err) {
+			    	res.json({status: 500, message: err.message});
+					return callback(new Error(err));
+				}
+				
+				var decoded = jwt.verify(token, 'gato');
+						
+				models.User.findOne({
+					where:{ id: decoded.id }
+				}).then(function (userFound) {
+					
+					if (userFound==null) {
+							res.json({status: 500, message: "Invalid_user"});
+							return callback(new Error("Invalid_user"));
+						}
+					
+					var userId=userFound.id;
+
+					var newNote = models.Note.create({
+						note:req.body.note,
+				      	message:req.body.message,
+				      	idResto:idResto,
+				      	idUser: userId
+					}).then(function(newNote){
+						callback();
+					}).catch(function(err){ 
+						console.log(err); 
+					});//end newResto
+							
+				}).catch(function(err) { 
+					console.log(err); 
+				});//end findOne
+
+			});//end jwt.verify
 
 
-	models.Note.sum('note',{
-		where:{ idResto: id}
-	}).then(function (data) {
-		if (data==null) {
-			res.json({status: 500, message: "Not coincidences"});
-		}
-		
-		response = {sum: data}
-   		
-		res.setHeader('Content-Type', 'text/plain');
-		res.json(response);
+		},
+		// fonction #2 
+		function(callback) {
 
-	}).catch(function(err) { 
-		console.log(err); 
-	});
+			models.Note.sum('note',{
+				where:{ idResto: idResto}
+			}).then(function (data) {
+				if (data==null) {
+					res.json({status: 500, message: "Invalid_resto"});
+					return callback(new Error("Invalid_resto"));
+				}
+
+				suma = data;
+
+			}).catch(function(err) { 
+				console.log(err); 
+			});
+
+			models.Note.count({ where:{ idResto: idResto} }).then(function(c) {
+			  	prom= suma/c;
+			  	console.log(prom.toFixed(2));
+			  	callback();
+			})
+
+		},
+		// fonction #3 
+		function(callback) {
+
+			models.Resto.update({
+			  	note:prom.toFixed(2)
+			}, {
+			  where: {
+			    id: idResto
+			  }
+			}).then(function(response){
+				response = {
+		      		response: "Note was correctly create and now the average is "+ prom
+		   		};
+				res.setHeader('Content-Type', 'text/plain');
+				res.end(JSON.stringify(response));
+				
+			}).catch(function(err) {
+				response = { erro:err}; 
+				res.end(JSON.stringify(response));
+			});//end findOne;
+
+		},],
+		function(err, results) {
+			if (err) return (err);
+	  		res.end();
+	});//end Async
+
+
+	
 
 });
 
@@ -151,7 +242,7 @@ router.post('/create', urlencodedParser, function (req, res) {
   if(!req.body.note||!req.body.message||!req.body.resto) return res.sendStatus(401)
   //If header token is not defined throw and error status
   if(!req.get('token')) return res.sendStatus(401)
-  	console.log(req.get('token'));
+  	
   	//I take the token and i verify it. 
 	var token=req.get('token');
 	jwt.verify(token, 'gato', function(err, decoded) {
