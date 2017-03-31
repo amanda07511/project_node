@@ -39,7 +39,7 @@ export class RestoPage {
       this.token = value;
     });
 
-    this.getDirection();
+    this.loadMap();
 
   }
 
@@ -54,7 +54,6 @@ export class RestoPage {
    loadNotes(){
        this.notesService.loadNotes(this.id).then(data => {
           this.notes = data;
-          console.log(data);
           if(this.notes.length==0){
             this.notes= null;
             this.one = true; 
@@ -69,6 +68,43 @@ export class RestoPage {
             console.log(err);
         });
    }
+
+   loadMap(){
+ 
+    Geolocation.getCurrentPosition().then((position) => {
+
+      let latLng = new google.maps.LatLng(this.lat,this.lng);
+      //console.log("IM INSIDE THE GEOLOCATION")
+      //let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+
+      let mapOptions = {
+        center: latLng,
+        zoom: 17,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+ 
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+       
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
+
+      let infoWindow = new google.maps.InfoWindow({
+        content: "Im here"
+      });
+
+      google.maps.event.addListener(marker, 'click', () => {
+        infoWindow.open(this.map, marker);
+      });
+
+
+    }, (err) => {
+      console.log(err);
+    });
+ 
+  }
 
    getDirection(){
      let location = new google.maps.LatLng (this.lat,this.lng);

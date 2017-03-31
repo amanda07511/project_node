@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { ProfilePage } from '../pages/profile/profile';
+import { HomePage } from '../pages/home/home';
 
 
 
@@ -28,8 +29,9 @@ export class MyApp {
     });
 
     this.pages = [
-      { title: 'Accueil', icon: 'home', component: SearchPage },
-      { title: 'Profile', icon: 'md-create', component: ProfilePage }
+      { title: 'Home', icon: 'home', component: SearchPage },
+      { title: 'Account', icon: 'md-create', component: ProfilePage },
+      { title: 'My Restaurants', icon: 'ios-restaurant', component: HomePage }
     ];
 
   }
