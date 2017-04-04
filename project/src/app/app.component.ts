@@ -5,7 +5,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { ProfilePage } from '../pages/profile/profile';
-import { HomePage } from '../pages/home/home';
+import { MyRestosPage } from '../pages/my-restos/my-restos';
+import { NotePage } from '../pages/note/note';
+
 
 
 
@@ -31,7 +33,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', icon: 'home', component: SearchPage },
       { title: 'Account', icon: 'md-create', component: ProfilePage },
-      { title: 'My Restaurants', icon: 'ios-restaurant', component: HomePage }
+      { title: 'My Restaurants', icon: 'ios-restaurant', component: MyRestosPage },
+      { title: 'My Notes', icon: 'ios-chatbubbles', component: NotePage }
     ];
 
   }

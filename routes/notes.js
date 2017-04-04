@@ -201,7 +201,7 @@ router.get('/get', function(req, res) {
 	var token=req.get('token');
 	jwt.verify(token, 'gato', function(err, decoded) {
 	  if (err) {
-	  	response = { erro:err.message };
+	  	response = { status: 500 ,erro:err.message };
 	    return res.end(JSON.stringify(response));
 	  }
 	  	var decoded = jwt.verify(token, 'gato');
@@ -216,9 +216,8 @@ router.get('/get', function(req, res) {
 	  		
 	  		for(var i=0;i<data.length;i++){
 	  			
-				response = {note: data[i].note, message:data[i].message,  
-					user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo},
-					resto: {nom: data[i].Resto.nom, lat: data[i].Resto.lat, lng: data[i].Resto.lng, type: data[i].Resto.type}
+				response = {status: 200, id: data[i].id ,note: data[i].note, message:data[i].message, created: data[i].createdAt,
+					resto: {nom: data[i].Resto.nom, lat: data[i].Resto.lat, lng: data[i].Resto.lng, type: data[i].Resto.type, photo: data[i].Resto.photo}
 	   			 };
 	   			 restos.push(response);
 			}
@@ -331,14 +330,11 @@ router.post('/update', urlencodedParser, function(req,res){
 });//end post update
 
 // POST /update gets urlencoded bodies
-router.delete('/delete', urlencodedParser, function(req,res){
+router.delete('/delete', function(req,res){
 
-	//If there's no body parametres throw and error status
-	if (!req.body) return res.sendStatus(401)
-	//If one of the parametres is not defined throw and error status
-  	if(!req.body.id) return res.sendStatus(401)
   	//If header token is not defined throw and error status
   	if(!req.get('token')) return res.sendStatus(401)
+  	if(!req.get('id')) return res.sendStatus(401)
 
 	//I take the token and i verify it. 
 	var token=req.get('token');
@@ -350,7 +346,7 @@ router.delete('/delete', urlencodedParser, function(req,res){
 
 	 
 		models.Note.find({
-		 	where: { id: req.body.id } 
+		 	where: { id: req.get('id') } 
 		 }).then(function(response){
 		 	if (response==null) {
 				resp = {status: 500, message: "Resto not found"};
@@ -359,7 +355,7 @@ router.delete('/delete', urlencodedParser, function(req,res){
 			
 			response.destroy();
 			response = {
-		      	response: "Note was correctly deleted"
+		      	response: {status: 200, message: "Note was correctly deleted"};
 		   	};
 			res.setHeader('Content-Type', 'text/plain');
 			res.end(JSON.stringify(response));

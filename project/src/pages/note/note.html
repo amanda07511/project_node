@@ -7,12 +7,59 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>note</ion-title>
+  	<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My notes</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	 <ion-card>
+
+          <ion-card-header>
+            Notes
+          </ion-card-header>
+
+          <ion-col width-80 *ngIf="one">
+                <h2>There's not comments already, make one and let us know your opinion!</h2>
+          </ion-col>
+
+          <ion-list *ngFor="let note of notes">
+
+            <ion-item>
+
+              <ion-item>
+                <ion-avatar item-left>
+                  <img src="{{note.resto.photo}}">
+                </ion-avatar>
+                <h2>{{note.resto.nom}}</h2>
+                <h3>Type: {{note.type}}</h3>
+              </ion-item>
+
+              <ion-col width-80>
+                <h2>Comment: {{note.message}}</h2>
+              </ion-col>
+
+              <ion-row>
+                <ion-col>
+                  <p>Note: <ion-badge item-right color="secondary">{{note.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+                <ion-col>
+                  <button ion-button icon-left clear small (click)="  deleteNote(note.id)">
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+
+            </ion-item>
+
+          </ion-list>
+
+        </ion-card>
 
 </ion-content>

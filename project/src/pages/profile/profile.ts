@@ -123,7 +123,6 @@ accessGallery(){
     }, (err) => {
         console.log(err);
     });
-
    
   }  
 

@@ -6,22 +6,17 @@ import { ProfilePage } from '../pages/profile/profile';
 import { RestoPage } from '../pages/resto/resto';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
-
+import { NotePage } from '../pages/note/note';
+import { MyRestosPage } from '../pages/my-restos/my-restos';
+import { NewRestoPage } from '../pages/new-resto/new-resto';
+import { AutocompletePage } from '../pages/autocomplete/autocomplete';
 
 import { AuthService } from '../providers/auth-service';
 import { Note } from '../providers/note';
 import { SearchService } from '../providers/search-service';
 import { PeopleService } from '../providers/people-service';
-import { PostData } from '../providers/post-data';
 import { ConnectivityService } from '../providers/connectivity-service';
 
-
-
-import { LastPage } from '../pages/last/last';
-import { Profile} from '../pages/last/last';
-import { MapPage } from '../pages/map/map';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
@@ -32,21 +27,18 @@ function authHttpServiceFactory(http: Http, options: RequestOptions) {
 }
 
 
-
-
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    TabsPage,
-    LastPage,
-    MapPage,
     SearchPage,
     SignupPage,
     LoginPage,
-    Profile,
     ProfilePage,
-    RestoPage
+    RestoPage,
+    MyRestosPage,
+    NotePage,
+    NewRestoPage,
+    AutocompletePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -54,18 +46,17 @@ function authHttpServiceFactory(http: Http, options: RequestOptions) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    TabsPage,
-    LastPage,
-    MapPage,
     SearchPage,
     LoginPage,
     SignupPage,
-    Profile,
     ProfilePage,
-    RestoPage
+    RestoPage,
+    MyRestosPage,
+    NotePage,
+    NewRestoPage,
+    AutocompletePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage,  ConnectivityService, SearchService, PostData, AuthService, Note , PeopleService, 
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage,  ConnectivityService, SearchService,  AuthService, Note , PeopleService, 
       {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
