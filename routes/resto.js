@@ -142,7 +142,7 @@ router.post('/create', urlencodedParser, function (req, res) {
   //If there's no body parametres throw and error status
   if (!req.body) return res.sendStatus(401)
   //If one of the parametres is not defined throw and error status
-  if(!req.body.nom||!req.body.type||!req.body.lat||!req.body.lng) return res.sendStatus(401)
+  if(!req.body.nom||!req.body.type||!req.body.lat||!req.body.lng||!req.body.img) return res.sendStatus(401)
   //If header token is not defined throw and error status
   if(!req.get('token')) return res.sendStatus(401)
 
@@ -174,6 +174,7 @@ router.post('/create', urlencodedParser, function (req, res) {
 		      	type:req.body.type,
 		      	lat:req.body.lat,
 		      	lng:req.body.lng,
+		      	photo:req.body.img,
 		      	note:0,
 		      	idUser: userId
 			}).then(function(newResto){
@@ -239,7 +240,7 @@ router.post('/update', urlencodedParser, function(req,res){
 
 });//end post update
 
-// POST /update gets urlencoded bodies
+// POST /delete gets urlencoded bodies
 router.delete('/delete', urlencodedParser, function(req,res){
 
 	//If there's no body parametres throw and error status

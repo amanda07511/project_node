@@ -47,7 +47,7 @@ router.get('/', function(req, res) {
 	});
 });
 
-// GET notes by id Resto 
+// Create a new note and update the general note of a resto
 router.post('/suma', urlencodedParser , function(req,res){
 
 	//If there's no body parametres throw and error status

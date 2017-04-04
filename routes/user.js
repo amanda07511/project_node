@@ -27,9 +27,8 @@ router.use(function timeLog(req, res, next) {
 router.post('/login', urlencodedParser, function(req,res){
 
 	//If there's no body parametres throw and error status
-	//if (!req.body) return res.sendStatus(401)
+	if (!req.body) return res.sendStatus(401)
 	//If one of the parametres is not defined throw and error status
-
 	if(!req.body.email||!req.body.password) return res.sendStatus(401)
 
 	models.User.findOne({
@@ -55,6 +54,7 @@ router.post('/login', urlencodedParser, function(req,res){
 
 });
 
+// POST create a new user
 router.post('/signup', urlencodedParser, function (req, res) {
 	
   //If there's no body parametres throw and error status
@@ -115,7 +115,7 @@ router.post('/signup', urlencodedParser, function (req, res) {
 	
 });
 
-// GET resto by id 
+// GET user by id 
 router.get('/get/', function(req,res){
 	console.log(req.get('token'));
 	//If header token is not defined throw and error status

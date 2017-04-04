@@ -90,6 +90,26 @@ export class SearchService {
     });
   }
 
+  createResto(token,details,lat,lng,img){
+    let headers = new Headers();
+      headers.append('token',token);
+      headers.append('Content-Type','application/x-www-form-urlencoded');
+     let options = new RequestOptions({ headers: headers });
 
+     let body = 'nom='+details.nom+'&type='+details.type+'&lat='+lat+'&lng='+lng+'&img='+img;
+    
+      return new Promise((resolve, reject) => {
+         
+        this.http.post('http://localhost:3000/notes/suma', body ,options)
+          .subscribe(res => {
+            let data = res.json();
+            resolve(data);
+            resolve(res.json());
+          }, (err) => {
+            reject(err);
+          });
+ 
+    });
+  }
 
 }

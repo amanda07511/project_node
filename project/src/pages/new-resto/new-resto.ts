@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 import { AutocompletePage } from '../autocomplete/autocomplete';
 import { Camera, ImagePicker, Transfer } from 'ionic-native';
+import { SearchService } from '../../providers/search-service';
+import { Storage } from '@ionic/storage';
+import { MyRestosPage } from '../my-restos/my-restos';
 
 declare var google:any;
 
@@ -20,10 +23,13 @@ export class NewRestoPage {
   base64Image
   lat: any;
   lng: any;
+  token = '';
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams , private modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public storage: Storage,public searchService: SearchService, public navParams: NavParams , private modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController) {
   	this.base64Image = this.img;
+    this.storage.get('token').then((value) => {
+      this.token = value;
+    });
   
   }
 
@@ -154,7 +160,15 @@ accessGallery(){
     }, (err) => {
         console.log(err);
     });
-  }     
+  }
+
+  createResto(){
+      this.searchService.createResto(this.token, this.registerCredentials, this.lat, this.lng, this.base64Image).then((result) => {
+            this.navCtrl.setRoot(MyRestosPage);
+        }, (err) => {
+            console.log(err);
+        });
+   }     
 
 
 }
