@@ -124,7 +124,7 @@ router.get('/get', function(req, res) {
 	  		
 	  		for(var i=0;i<data.length;i++){
 
-				a={ nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng ,created: data[i].createdAt};
+				a={ id: data[i].id ,nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng ,created: data[i].createdAt, photo: data[i].phot};
 				restos.push(a);
 			}
 

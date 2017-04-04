@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Geocoder, GeocoderRequest } from 'ionic-native';
+import { Geolocation, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, CameraPosition, GoogleMapsMarkerOptions, GoogleMapsMarker, Geocoder, GeocoderRequest } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
 import { SearchService } from '../../providers/search-service';
@@ -13,6 +13,11 @@ declare var google;
   templateUrl: 'resto.html'
 })
 export class RestoPage {
+
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+  lat: any;
+  lng: any;
 
   public one = false;
 
@@ -34,18 +39,21 @@ export class RestoPage {
       this.token = value;
     });
 
+    this.loadMap();
+
   }
 
   loadResto(){
        this.searchService.loadDetails(this.id).then(data => {
           this.items = data;
+          this.lat = data['lat'];
+          this.lng = data['lng'];
        });
    }
 
    loadNotes(){
        this.notesService.loadNotes(this.id).then(data => {
           this.notes = data;
-          console.log(data);
           if(this.notes.length==0){
             this.notes= null;
             this.one = true; 
@@ -61,8 +69,45 @@ export class RestoPage {
         });
    }
 
+   loadMap(){
+ 
+    Geolocation.getCurrentPosition().then((position) => {
+
+      let latLng = new google.maps.LatLng(this.lat,this.lng);
+      //console.log("IM INSIDE THE GEOLOCATION")
+      //let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+
+      let mapOptions = {
+        center: latLng,
+        zoom: 17,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+ 
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+       
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
+
+      let infoWindow = new google.maps.InfoWindow({
+        content: "Im here"
+      });
+
+      google.maps.event.addListener(marker, 'click', () => {
+        infoWindow.open(this.map, marker);
+      });
+
+
+    }, (err) => {
+      console.log(err);
+    });
+ 
+  }
+
    getDirection(){
-     let location = new google.maps.LatLng (13123.3,-243.98);
+     let location = new google.maps.LatLng (this.lat,this.lng);
      let req: GeocoderRequest = { position: location }
         Geocoder.geocode(req).then((results)=>{
           console.log(results)

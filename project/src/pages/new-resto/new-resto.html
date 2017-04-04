@@ -1,0 +1,54 @@
+<ion-header>
+ 
+  <ion-navbar>
+
+    <ion-title>New Rastaurant</ion-title>
+
+  </ion-navbar>
+ 
+</ion-header>
+ 
+ 
+<ion-content padding>
+
+ <div class="login-box">
+    <form (ngSubmit)="singup()" #registerForm="ngForm">
+      
+      <ion-card>
+          <img [src]="base64Image" *ngIf="base64Image" />
+          <button ion-button color="primary" (click)=" presentActionSheet()" full>Change Image</button>
+      </ion-card>
+
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+          <ion-item>
+              <ion-input type="text" placeholder="Nom" name="nom" [(ngModel)]="registerCredentials.nom" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Type" name="type" [(ngModel)]="registerCredentials.type" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              	<ion-input type="text" placeholder="Address" name="address" (click)="showModal()" [(ngModel)]="registerCredentials.address" required></ion-input>
+            </ion-item>
+            
+          	</ion-list>
+        	</ion-col>
+      	</ion-row>
+
+        <div #map id="map"></div>
+
+      <ion-row>
+      	<ion-col width-20></ion-col>
+        <ion-col width-60 class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Resgistre</button>
+        </ion-col>
+        <ion-col width-20></ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
+
+</ion-content>

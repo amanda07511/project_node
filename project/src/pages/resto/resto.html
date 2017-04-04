@@ -32,11 +32,13 @@
           <img src="{{items.photo}}">
           <ion-col width-80>
             <h2>Type: {{items.type}}</h2>
-            <p>{{items.lat}}</p>
-            <p>{{items.lng}}</p>
             <p>Note: <ion-badge item-right color="secondary">{{items.note}} <ion-icon name="md-happy"></ion-icon> </ion-badge></p>
           </ion-col>
           
+        </ion-card>
+
+        <ion-card>
+          <div #map id="map"></div>
         </ion-card>
 
         <ion-card>
@@ -52,7 +54,7 @@
           </ion-fab>
 
           <ion-col width-80 *ngIf="one">
-                <h2>There's not comments already, make one and let know your opinion!</h2>
+                <h2>There's not comments already, make one and let us know your opinion!</h2>
           </ion-col>
 
           <ion-list *ngFor="let note of notes">

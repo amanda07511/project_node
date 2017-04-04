@@ -23,8 +23,12 @@ export class LoginPage {
 
     this.auth.login(this.registerCredentials).then((result) => {
             this.loading.dismiss();
-            console.log(result);
-            this.nav.setRoot(SearchPage);
+            console.log(result['status']);
+            if(result['status']==500)
+              this.showError("Wrong email or password");
+            else{
+              this.nav.setRoot(SearchPage);
+            }
         }, (err) => {
             this.showError("Something is wrong, try again!");
             console.log(err);

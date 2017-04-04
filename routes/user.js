@@ -39,21 +39,15 @@ router.post('/login', urlencodedParser, function(req,res){
 		}
 	}).then(function (userFound) {
 		if (userFound==null) {
-			res.json({status: 500, message: "Invalid_credentials"});
+			return res.json({status: 500, message: "Invalid_credentials"});
 		}
 		//create a token with user informationand with an hour of duration
 			var token=jwt.sign({id: userFound.id}, 
 				'gato');
 
 			// Prepare output in JSON format
-			 response = {
-      				token:token
-   			 };
-   			
-   			res.header("Access-Control-Allow-Origin", "*");
-   			res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-   			res.header("Access-Control-Allow-Headers", "X-Requested-With,     Content-Type");
-			res.setHeader('Content-Type', 'application/json');
+			 response = {status: 200, token:token};
+  
 			res.end(JSON.stringify(response));	
 	}).catch(function(err) { 
 		console.log(err); 
@@ -62,7 +56,7 @@ router.post('/login', urlencodedParser, function(req,res){
 });
 
 router.post('/signup', urlencodedParser, function (req, res) {
-	console.log(req.body)
+	
   //If there's no body parametres throw and error status
   if (!req.body) return res.sendStatus(401)
   //If one of the parametres is not defined throw and error status
@@ -97,7 +91,7 @@ router.post('/signup', urlencodedParser, function (req, res) {
 				password: req.body.password,
 				photo: req.body.photo,
 			}).then(function(newUser){
-				console.log(newUser);
+				
 				//create a token with user informationand with an hour of duration
 				var token=jwt.sign({id: newUser.id}, 
 					'gato');

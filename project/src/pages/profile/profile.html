@@ -1,7 +1,9 @@
 <ion-header>
  
   <ion-navbar>
-
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Mon Profile</ion-title>
 
   </ion-navbar>
@@ -21,16 +23,16 @@
 
           	<ion-item>
           		<ion-avatar item-left>
-              		<img [src]="base64Image" *ngIf="base64Image" />
+              		<img [src]="base64Image" *ngIf="base64Image" (click)=" presentActionSheet()"/>
               	</ion-avatar>
             </ion-item>
 
           	<ion-item>
-              <ion-input type="text" placeholder="Nom" name="nom" [(ngModel)]="registerCredentials.nom" required>{{people.user.nom}} </ion-input>
+              <ion-input type="text" placeholder="Nom" name="nom" [(ngModel)]="registerCredentials.nom"   required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="text" placeholder="prenom" name="prenom" [(ngModel)]="registerCredentials.prenom" required>{{people.user.prenom}} </ion-input>
+              <ion-input type="text" placeholder="prenom" name="prenom" [(ngModel)]="registerCredentials.prenom"  required></ion-input>
             </ion-item>
            
           </ion-list>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../providers/auth-service';
 import { NavController, AlertController, LoadingController, Loading  } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+import { SearchPage } from '../search/search';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class SignupPage {
     this.auth.createAccount(this.registerCredentials).then((result) => {
             this.loading.dismiss();
             console.log(result);
-            this.nav.setRoot(TabsPage);
+            this.nav.setRoot(SearchPage);
         }, (err) => {
             this.showError("Something went wrong,try again!");
             console.log(err);            

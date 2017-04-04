@@ -21,7 +21,7 @@ export class ProfilePage {
   registerCredentials = {nom: '',prenom: ''};
   loading: Loading;
   token = '';
-  base64Image
+  base64Image ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private peopleService: PeopleService, private app: App, private storage: Storage, public actionSheetCtrl: ActionSheetController , private loadingCtrl: LoadingController ) {
 
@@ -44,6 +44,8 @@ export class ProfilePage {
        this.peopleService.loadData(this.token).then(data => {
           this.people = data;
           this.base64Image=data['photo'];
+          this.registerCredentials.nom = data['nom'];
+          this.registerCredentials.prenom = data['prenom'];
        });
    }
 
@@ -121,7 +123,6 @@ accessGallery(){
     }, (err) => {
         console.log(err);
     });
-
    
   }  
 
