@@ -354,9 +354,8 @@ router.delete('/delete', function(req,res){
 			}
 			
 			response.destroy();
-			response = {
-		      	response: {status: 200, message: "Note was correctly deleted"};
-		   	};
+			response =  {status: 200, message: "Note was correctly deleted"};
+		   	
 			res.setHeader('Content-Type', 'text/plain');
 			res.end(JSON.stringify(response));
 			

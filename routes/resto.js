@@ -162,7 +162,7 @@ router.post('/create', urlencodedParser, function (req, res) {
 		}).then(function (userFound) {
 			
 			if (userFound==null) {
-				response = {status: 500, message: "Invalid_user"};
+				response = { status: 500, message: "Invalid_user"};
 					return res.end(JSON.stringify(response));
 				}
 			
@@ -178,9 +178,8 @@ router.post('/create', urlencodedParser, function (req, res) {
 		      	note:0,
 		      	idUser: userId
 			}).then(function(newResto){
-				response = {
-				    response: "Resto" +newResto.nom+" was correctly create"
-				 };
+
+				response = { status: 500, message: "Resto" +newResto.nom+" was correctly create"};
 				res.setHeader('Content-Type', 'text/plain');
 				res.end(JSON.stringify(response));
 			

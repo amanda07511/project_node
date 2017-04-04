@@ -73,9 +73,6 @@ export class NewRestoPage {
                 self.placedetails.address = place.formatted_address;
                 self.placedetails.lat = place.geometry.location.lat();
                 self.placedetails.lng = place.geometry.location.lng();
-
-                this.lat= place.geometry.location.lat();
-                this.lng= place.geometry.location.lng();
                             
                 // set place in map
                 self.map.setCenter(place.geometry.location);
@@ -163,7 +160,8 @@ accessGallery(){
   }
 
   createResto(){
-      this.searchService.createResto(this.token, this.registerCredentials, this.lat, this.lng, this.base64Image).then((result) => {
+      this.searchService.createResto(this.token, this.registerCredentials, this.placedetails.lat, this.placedetails.lng, this.base64Image).then((result) => {
+            console.log(result);
             this.navCtrl.setRoot(MyRestosPage);
         }, (err) => {
             console.log(err);
