@@ -14,3 +14,39 @@ Les principales fonctionnalités sont:
 -Créer, consulter et noter des restaurantes
 
 -Créer,  consulter et éliminer des notes
+
+
+Installation API
+
+
+Dependencies:
+
+-Mysql
+
+$ npm install mysql
+
+-Sequelize
+
+$ npm install -S sequelize
+
+$ npm install -g sequelize-cli
+
+
+Deployment:
+
+-Clone ou donwload le project  https://github.com/amanda07511/project_node.git
+
+-Créer un base de données avec le nom Resto
+
+-Ouvrir les projets en console et installe le dependencies
+
+-Changer votre configuration de base de données en config>config 
+
+-Entree  $ sequelize db:migrate
+
+
+Utilisation:
+
+-Dans console en la  racine du projet  entrée  $ node app.js
+
+-Utiliser votre explorateur ou un tool comme postman pour tester les liens 
