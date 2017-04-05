@@ -7,7 +7,7 @@ L’application montrerais un liste avec les meilleurs options d’accord à des
 
 On a créé cet API en utilisant de node js et ses librairies et on l'a mis en place avec un démo d’un application mobile avec le framework ionic.
 
-# # Les principales fonctionnalités sont:
+## Les principales fonctionnalités sont:
 
 -Créer, consulter et modifier un compte d’utilisateur
 
@@ -16,23 +16,33 @@ On a créé cet API en utilisant de node js et ses librairies et on l'a mis en p
 -Créer,  consulter et éliminer des notes
 
 
-# # Installation API
+## Installation API
 
 
-# # # Dependencies:
+### Dependencies:
 
 -Mysql
 
+
+```
 $ npm install mysql
+
+```
 
 -Sequelize
 
+
+```
 $ npm install -S sequelize
 
+```
+
+```
 $ npm install -g sequelize-cli
 
+```
 
-# # # Deployment:
+### Deployment:
 
 -Clone ou donwload le project  https://github.com/amanda07511/project_node.git
 
@@ -42,10 +52,13 @@ $ npm install -g sequelize-cli
 
 -Changer votre configuration de base de données en config>config 
 
--Entree  $ sequelize db:migrate
+-Entree 
+```
+$ sequelize db:migrate
 
+```
 
-# # # Utilisation:
+### Utilisation:
 
 -Dans console en la  racine du projet  entrée  $ node app.js
 
