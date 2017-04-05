@@ -21,7 +21,7 @@ On a créé cet API en utilisant de node js et ses librairies et on l'a mis en p
 
 ### Dependencies:
 
--Mysql
+-* [Mysql](https://github.com/mysqljs/mysql) 
 
 
 ```
@@ -29,7 +29,7 @@ $ npm install mysql
 
 ```
 
--Sequelize
+-* [Sequelize](https://github.com/sequelize/sequelize) 
 
 
 ```
