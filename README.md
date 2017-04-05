@@ -1,4 +1,4 @@
-FIND RESTO!
+# FIND RESTO!
 
 C'est une application pour donner des avis  sur des restaurantes de tout le monde sur une échelle de 1 à 10, vous trouverez des avis des 
 autres utilisateurs pour mieux s'informer et mieux manger. 
@@ -7,7 +7,7 @@ L’application montrerais un liste avec les meilleurs options d’accord à des
 
 On a créé cet API en utilisant de node js et ses librairies et on l'a mis en place avec un démo d’un application mobile avec le framework ionic.
 
-Les principales fonctionnalités sont:
+# # Les principales fonctionnalités sont:
 
 -Créer, consulter et modifier un compte d’utilisateur
 
@@ -16,10 +16,10 @@ Les principales fonctionnalités sont:
 -Créer,  consulter et éliminer des notes
 
 
-Installation API
+# # Installation API
 
 
-Dependencies:
+# # # Dependencies:
 
 -Mysql
 
@@ -32,7 +32,7 @@ $ npm install -S sequelize
 $ npm install -g sequelize-cli
 
 
-Deployment:
+# # # Deployment:
 
 -Clone ou donwload le project  https://github.com/amanda07511/project_node.git
 
@@ -45,7 +45,7 @@ Deployment:
 -Entree  $ sequelize db:migrate
 
 
-Utilisation:
+# # # Utilisation:
 
 -Dans console en la  racine du projet  entrée  $ node app.js
 
