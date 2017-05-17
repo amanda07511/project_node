@@ -34,7 +34,7 @@ export class AuthService {
     
       return new Promise((resolve, reject) => {
          console.log(credentials);
-        this.http.post('http://localhost:3000/user/login', body ,options)
+        this.http.post('http://192.168.43.105:3000/user/login', body ,options)
           .subscribe(res => {
             let data = res.json();
             if(data.status==500)
@@ -66,7 +66,7 @@ export class AuthService {
 
      return new Promise((resolve, reject) => {
         console.log(details);
-        this.http.post('http://localhost:3000/user/signup', body , options )
+        this.http.post('http://192.168.43.105:3000/user/signup', body , options )
           .subscribe(res => {
             let data = res.json();
             this.token = data.token;
