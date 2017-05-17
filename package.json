@@ -12,6 +12,12 @@
     "express-session": "^1.15.1",
     "googleapis": "^18.0.0",
     "mysql": "^2.13.0",
-    "sequelize": "^3.30.2"
+    "sequelize": "^3.30.2",
+    "jade": "*",
+    "less-middleware": "*",
+    "nconf": "~0.6.7",
+    "socket.io": "~0.9.13",
+    "everyauth": "https://github.com/bnoguchi/everyauth/tarball/express3",
+    "recaptcha": "~1.2.0"
   }
 }

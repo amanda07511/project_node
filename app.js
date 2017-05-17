@@ -1,6 +1,3 @@
-//My modules
-var connect = require('sever'); 
-
 //Node modules
 var express    = require("express");
 var cors = require('cors')
@@ -12,7 +9,7 @@ var notes = require('./routes/notes.js');
 
 //create application expres
 var app = express();
-var port = process.env.port || 1337
+var port = process.env.port || 3000
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
