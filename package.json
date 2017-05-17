@@ -2,7 +2,7 @@
   "name": "resto2",
   "version": "1.0.0",
   "description": "proyect notes du restaurants",
-  "main": "index.js",
+  "main": "app.js",
   "author": "Amanda Marroquin",
   "license": "ISC",
   "dependencies": {
