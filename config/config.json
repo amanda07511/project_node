@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "amanda07511",
+    "password": "sakura%10",
     "database": "resto",
-    "host": "localhost",
-    "dialect": "mysql"  
+    "host": "indaller.database.windows.net",
+    "dialect": "mssql"  
   },
   "test": {
     "username": "root",
