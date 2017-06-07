@@ -14,7 +14,7 @@ export class SearchService {
   
   data: any;
   items: any;
-  url: any;
+  url = "http://localhost:3000/";
   item : any; 
 
   constructor(public http: Http) {
@@ -25,10 +25,10 @@ export class SearchService {
   load(searchTerm) {
     
     
-	 console.log('http://192.168.43.105:3000/resto/get/'+searchTerm);
+	 console.log(this.url+'resto/get/'+searchTerm);
     
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.105:3000/resto/get/'+searchTerm)
+      this.http.get(this.url+'resto/get/'+searchTerm)
         .map(res => res.json())
         .subscribe(data => {
           this.data =  data;
@@ -39,10 +39,10 @@ export class SearchService {
 
   loadDetails(Id) {
     
-   console.log('http://192.168.43.105:3000/resto/getId/'+Id);
+   console.log(this.url+'resto/getId/'+Id);
     
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.105:3000/resto/getId/'+Id)
+      this.http.get(this.url+'resto/getId/'+Id)
         .map(res => res.json())
         .subscribe(data => {
           this.data =  data;
@@ -58,7 +58,7 @@ export class SearchService {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      this.http.get('http://192.168.43.105:3000/resto/')
+      this.http.get(this.url+'resto/')
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
@@ -79,7 +79,7 @@ export class SearchService {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      this.http.get('http://192.168.43.105:3000/resto/get', options,)
+      this.http.get(this.url+'resto/get', options,)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
@@ -100,7 +100,7 @@ export class SearchService {
     
       return new Promise((resolve, reject) => {
          
-        this.http.post('http://192.168.43.105:3000/resto/create', body ,options)
+        this.http.post(this.url+'resto/create', body ,options)
           .subscribe(res => {
             let data = res.json();
             resolve(data);

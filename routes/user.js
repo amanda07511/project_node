@@ -37,9 +37,7 @@ router.post('/login', urlencodedParser, function(req,res){
 			password: req.body.password
 		}
 	}).then(function (userFound) {
-		if (userFound==null) {
-			return res.json({status: 500, message: "Invalid_credentials"});
-		}
+		if (userFound==null) return res.status(404).send("Invalid_credentials");	
 		//create a token with user informationand with an hour of duration
 			var token=jwt.sign({id: userFound.id}, 
 				'gato');
@@ -71,10 +69,7 @@ router.post('/signup', urlencodedParser, function (req, res) {
 					email: req.body.email
 				}
 			}).then(function (userFound) {
-				if (userFound!=null) {
-					res.json({status: 500, message: "Invalid_email"});
-					return callback(new Error('Invalid email'));
-				}
+				if (userFound!=null) return res.status(404).send("Invalid_email");
 				callback();
 			}).catch(function(err) { 
 				console.log(err); 

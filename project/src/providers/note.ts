@@ -12,20 +12,21 @@ import 'rxjs/add/operator/map';
 export class Note {
 
   data: any;
+  url = "http://localhost:3000/";
 
   constructor(public http: Http) {
     console.log('Hello Note Provider');
   }
 
   loadNotes(Id) {
-  	console.log('http://192.168.43.105:3000/notes/getId/'+Id);
+  	console.log(this.url+'notes/getId/'+Id);
 
     // don't have the data yet
     return new Promise(resolve => {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      this.http.get('http://192.168.43.105:3000/notes/get/'+Id)
+      this.http.get(this.url+'notes/get/'+Id)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
@@ -46,7 +47,7 @@ export class Note {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      this.http.get('http://192.168.43.105:3000/notes/get', options)
+      this.http.get(this.url+'notes/get', options)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
@@ -67,7 +68,7 @@ export class Note {
     
       return new Promise((resolve, reject) => {
          
-        this.http.post('http://192.168.43.105:3000/notes/suma', body ,options)
+        this.http.post(this.url+'notes/suma', body ,options)
           .subscribe(res => {
             let data = res.json();
             resolve(data);
@@ -89,7 +90,7 @@ export class Note {
 
      return new Promise((resolve, reject) => {
          
-        this.http.delete('http://192.168.43.105:3000/notes/delete',options)
+        this.http.delete(this.url+'notes/delete',options)
           .subscribe(res => {
             let data = res.json();
             resolve(data);

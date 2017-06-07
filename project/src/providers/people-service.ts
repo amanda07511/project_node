@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class PeopleService {
 
   data: any;
+  url = "http://localhost:3000/";
 
   constructor(public http: Http) {
     console.log('Hello PeopleService Provider');
@@ -26,7 +27,7 @@ export class PeopleService {
     
     
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.105:3000/user/get', options, )
+      this.http.get(this.url+'user/get', options, )
         .map(res => res.json())
         .subscribe(data => {
           this.data =  data;
@@ -50,7 +51,7 @@ export class PeopleService {
      console.log(body);
      return new Promise((resolve, reject) => {
         console.log(details);
-        this.http.post('http://192.168.43.105:3000/user/update', body , options )
+        this.http.post(this.url+'user/update', body , options )
           .subscribe(res => {
             let data = res.json();
             resolve(data);

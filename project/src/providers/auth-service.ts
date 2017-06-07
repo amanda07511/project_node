@@ -13,7 +13,7 @@ export class AuthService {
   token: string;
   post: any;
   img = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAaAAEBAQEBAQEAAAAAAAAAAAAABgQFAQID/8QAMRAAAgEEAAMFBAsAAAAAAAAAAAECAwQFERIhMRMiUVJxQWGRoQYUFTIzQnKBwdHh/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAIDAf/EABkRAQEAAwEAAAAAAAAAAAAAAAABAhExEv/aAAwDAQACEQMRAD8AuQAaMgAAAD2EJT+5GUv0rYHgPqdOdP8AEhKO/MtHyAAAAAAAAAANmIpqrkKMZLaTcvggOpisVCFNVrqClUktqMlyj/p14xUVqKSXgj0GbV8VaUK1N06sVKL6pk1lcc7OSnT3KjJ8t/lfgVBnyFJVbKvBrrBteq6HZdOWbR4ALZgAAAAAb8HKMcjDietppepgOr9HXH65NSS32e036o5eOzqjABDQMuTn2ePryT0+BpfvyNRlycISsa/aR2owbXqlyAkQAaMgAAAAAPulUnRqKpSk4zj0aPgAWlCp2lGnPzRTP0MOF4vs2jxb9ut+G3o3GbUJ/O31R1ZWkWlTWuLXVvqUBH5BNX1xxb32j6+p2JyZwAWgAAAJNvSW2epOTSS229JFTjcfTs6SbSdZrvS8PcjlunZNuJb4i7r6bgqcfGfL5HTtcHQptSrzdVr2dEdYE7X5jxJRSSSSXRI9AOOhkvrCjeR764Z65TXVGsAS11ibq3bcY9rDzQ/owFwZbuwt7qL7WC4vOuTRXpNxSINF9aVLOu6c+afOMkuTRnKQ2YeHHkqCa3pt/BFYTP0fW8ivdB/wUxFXjwABxQAAAAAAADnZ6jGpYSm13qbTT+RMFblUnjrjfkZJFTiMuv/Z';
-
+  url = "http://localhost:3000/";
 
   constructor(public http: Http, public storage: Storage) {
     //Load token if exists
@@ -34,7 +34,7 @@ export class AuthService {
     
       return new Promise((resolve, reject) => {
          console.log(credentials);
-        this.http.post('http://192.168.43.105:3000/user/login', body ,options)
+        this.http.post(this.url+'user/login', body ,options)
           .subscribe(res => {
             let data = res.json();
             if(data.status==500)
@@ -66,7 +66,7 @@ export class AuthService {
 
      return new Promise((resolve, reject) => {
         console.log(details);
-        this.http.post('http://192.168.43.105:3000/user/signup', body , options )
+        this.http.post(this.url+'user/signup', body , options )
           .subscribe(res => {
             let data = res.json();
             this.token = data.token;
