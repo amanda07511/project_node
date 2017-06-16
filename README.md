@@ -66,4 +66,6 @@ $ sequelize db:migrate
 
 
 ### Plus d'information ici:
-https://docs.google.com/document/d/1o9PnzMOh4PlmOGdutk0OEd931B1QAMFh_yLpqaadtEk/edit?usp=sharing
+https://indaller.herokuapp.com/
+ 
+ 
