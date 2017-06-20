@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "bca24812a07f94",
-    "password": "74d5dcd6",
-    "database": "heroku_63844f4640368cc",
-    "host": "eu-cdbr-west-01.cleardb.com",
-    "dialect": "mysql"  
+    "username": "root",
+    "password": null,
+    "database": "resto",
+    "host": "localhost",
+    "dialect": "mysql" 
   },
   "test": {
     "username": "bca24812a07f94",

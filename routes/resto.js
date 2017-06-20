@@ -53,9 +53,8 @@ router.get('/get/:name', function(req,res){
 		where:{ nom: nom},
 		include: [{ model: models.User, as: 'User'}]
 	}).then(function (restoFound) {
-		if (restoFound==null) {
-			res.json({status: 500, message: "Not coincidences"});
-		}
+		if (restoFound==null) return res.status(404).send("Resto not Found");
+		
 		else{
 			// Prepare output in JSON format
 			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
@@ -82,9 +81,7 @@ router.get('/getId/:id', function(req,res){
 		where:{ id: id},
 		include: [{ model: models.User, as: 'User'}]
 	}).then(function (restoFound) {
-		if (restoFound==null) {
-			res.json({status: 500, message: "Not coincidences"});
-		}
+		if (restoFound==null) return res.status(404).send("Resto not Found");
 		else{
 			// Prepare output in JSON format
 			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
@@ -108,10 +105,8 @@ router.get('/get', function(req, res) {
 
 	var token=req.get('token');
 	jwt.verify(token, 'gato', function(err, decoded) {
-	  if (err) {
-	  	response = { erro:err.message };
-	    return res.end(JSON.stringify(response));
-	  }
+	  if (err) return res.status(500).send(err.message);
+	  	
 	  	var decoded = jwt.verify(token, 'gato');
 		console.log(decoded);
 
