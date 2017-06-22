@@ -27,6 +27,8 @@ export class LoginPage {
             if(result['status']==500)
               this.showError("Wrong email or password");
             else{
+              
+
               this.nav.setRoot(SearchPage);
             }
         }, (err) => {

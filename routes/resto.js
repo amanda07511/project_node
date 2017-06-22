@@ -53,9 +53,8 @@ router.get('/get/:name', function(req,res){
 		where:{ nom: nom},
 		include: [{ model: models.User, as: 'User'}]
 	}).then(function (restoFound) {
-		if (restoFound==null) {
-			res.json({status: 500, message: "Not coincidences"});
-		}
+		if (restoFound==null) return res.status(404).send("Resto not Found");
+		
 		else{
 			// Prepare output in JSON format
 			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
@@ -82,9 +81,7 @@ router.get('/getId/:id', function(req,res){
 		where:{ id: id},
 		include: [{ model: models.User, as: 'User'}]
 	}).then(function (restoFound) {
-		if (restoFound==null) {
-			res.json({status: 500, message: "Not coincidences"});
-		}
+		if (restoFound==null) return res.status(404).send("Resto not Found");
 		else{
 			// Prepare output in JSON format
 			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
@@ -101,6 +98,35 @@ router.get('/getId/:id', function(req,res){
 
 });
 
+
+
+// GET resto by id 
+router.get('/getType/:nom', function(req,res){
+
+	var nom=decodeURI(req.params.nom);
+
+
+	models.Resto.findAll({
+		where:{ type: nom},
+		include: [{ model: models.User, as: 'User'}]
+	}).then(function(data) {
+  		
+  		var restos = Array();
+  		
+  		for(var i=0;i<data.length;i++){
+
+			a={ id: data[i].id, nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
+				user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo}};
+			restos.push(a);
+		}
+
+
+		res.setHeader('Content-Type', 'text/plain');
+		res.end(JSON.stringify(restos));
+	});
+
+});
+
 // GET my restos  
 router.get('/get', function(req, res) {
 	//If header token is not defined throw and error status
@@ -108,10 +134,8 @@ router.get('/get', function(req, res) {
 
 	var token=req.get('token');
 	jwt.verify(token, 'gato', function(err, decoded) {
-	  if (err) {
-	  	response = { erro:err.message };
-	    return res.end(JSON.stringify(response));
-	  }
+	  if (err) return res.status(500).send(err.message);
+	  	
 	  	var decoded = jwt.verify(token, 'gato');
 		console.log(decoded);
 
@@ -194,7 +218,6 @@ router.post('/create', urlencodedParser, function (req, res) {
 	});//end jwt.verify
 	
 });
-
 
 // POST /update gets urlencoded bodies
 router.post('/update', urlencodedParser, function(req,res){

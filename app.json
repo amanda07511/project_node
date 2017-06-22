@@ -1,0 +1,8 @@
+{
+  "name": "API MyResto: Node.js",
+  "description": "An API using node.jd sequelize express and mysql ",
+  "repository": "https://github.com/amanda07511/project_node",
+  "logo": "",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}
