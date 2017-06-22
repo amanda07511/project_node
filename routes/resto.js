@@ -106,30 +106,23 @@ router.get('/getType/:nom', function(req,res){
 	var nom=decodeURI(req.params.nom);
 
 
-	models.Resto.findOne({
+	models.Resto.findAll({
 		where:{ type: nom},
 		include: [{ model: models.User, as: 'User'}]
-	}).then(function (restoFound) {
-		if (restoFound==null) return res.status(404).send("Resto not Found");
-		else{
-		
-			var restos = Array();
-			
-			for(var i=0;i<restoFound.length;i++){
+	}).then(function(data) {
+  		
+  		var restos = Array();
+  		
+  		for(var i=0;i<data.length;i++){
 
-				a={ id: restoFound[i].id,nom: restoFound[i].nom, type:restoFound[i].type, lat:restoFound[i].lat, lng: restoFound[i].lng, photo: restoFound[i].photo , note: restoFound[i].note, 
-					user: {nom: restoFound[i].User.nom, prenom: restoFound[i].User.prenom, email: restoFound[i].User.email, photo: restoFound[i].User.photo}};
-				restos.push(a);
-			}
-
-
-			res.setHeader('Content-Type', 'text/plain');
-			res.end(JSON.stringify(restos));
+			a={ id: data[i].id, nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
+				user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo}};
+			restos.push(a);
 		}
-			
-				
-	}).catch(function(err) { 
-		console.log(err); 
+
+
+		res.setHeader('Content-Type', 'text/plain');
+		res.end(JSON.stringify(restos));
 	});
 
 });
