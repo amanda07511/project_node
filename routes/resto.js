@@ -112,12 +112,17 @@ router.get('/getType/:nom', function(req,res){
 	}).then(function (restoFound) {
 		if (restoFound==null) return res.status(404).send("Resto not Found");
 		else{
-			// Prepare output in JSON format
-			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
-				user: {nom: restoFound.User.nom, prenom:restoFound.User.prenom, email: restoFound.User.email, photo:restoFound.User.photo}
-   			};
-   			res.setHeader('Content-Type', 'text/plain');
-			res.end(JSON.stringify(response));
+		
+			for(var i=0;i<data.length;i++){
+
+				a={ id: data[i].id,nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
+					user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo}};
+				restos.push(a);
+			}
+
+
+			res.setHeader('Content-Type', 'text/plain');
+			res.end(JSON.stringify(restos));
 		}
 			
 				
