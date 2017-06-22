@@ -113,6 +113,8 @@ router.get('/getType/:nom', function(req,res){
 		if (restoFound==null) return res.status(404).send("Resto not Found");
 		else{
 		
+			var restos = Array();
+			
 			for(var i=0;i<data.length;i++){
 
 				a={ id: data[i].id,nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
