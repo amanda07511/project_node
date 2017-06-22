@@ -109,16 +109,16 @@ router.get('/getType/:nom', function(req,res){
 	models.Resto.findOne({
 		where:{ type: nom},
 		include: [{ model: models.User, as: 'User'}]
-	}).then(function (data) {
+	}).then(function (restoFound) {
 		if (restoFound==null) return res.status(404).send("Resto not Found");
 		else{
 		
 			var restos = Array();
+			
+			for(var i=0;i<restoFound.length;i++){
 
-			for(var i=0;i<data.length;i++){
-
-				a={ id: data[i].id,nom: data[i].nom, type:data[i].type, lat:data[i].lat, lng: data[i].lng, photo: data[i].photo , note: data[i].note, 
-					user: {nom: data[i].User.nom, prenom: data[i].User.prenom, email: data[i].User.email, photo: data[i].User.photo}};
+				a={ id: restoFound[i].id,nom: restoFound[i].nom, type:restoFound[i].type, lat:restoFound[i].lat, lng: restoFound[i].lng, photo: restoFound[i].photo , note: restoFound[i].note, 
+					user: {nom: restoFound[i].User.nom, prenom: restoFound[i].User.prenom, email: restoFound[i].User.email, photo: restoFound[i].User.photo}};
 				restos.push(a);
 			}
 
