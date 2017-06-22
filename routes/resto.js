@@ -98,6 +98,35 @@ router.get('/getId/:id', function(req,res){
 
 });
 
+
+
+// GET resto by id 
+router.get('/getType/:nom', function(req,res){
+
+	var nom=decodeURI(req.params.nom);
+
+
+	models.Resto.findOne({
+		where:{ type: nom},
+		include: [{ model: models.User, as: 'User'}]
+	}).then(function (restoFound) {
+		if (restoFound==null) return res.status(404).send("Resto not Found");
+		else{
+			// Prepare output in JSON format
+			response = { status: 200, id:restoFound.id ,nom:restoFound.nom, type:restoFound.type, lat:restoFound.lat, lng:restoFound.lng, photo:restoFound.photo, note:restoFound.note,
+				user: {nom: restoFound.User.nom, prenom:restoFound.User.prenom, email: restoFound.User.email, photo:restoFound.User.photo}
+   			};
+   			res.setHeader('Content-Type', 'text/plain');
+			res.end(JSON.stringify(response));
+		}
+			
+				
+	}).catch(function(err) { 
+		console.log(err); 
+	});
+
+});
+
 // GET my restos  
 router.get('/get', function(req, res) {
 	//If header token is not defined throw and error status
